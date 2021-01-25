@@ -1,0 +1,144 @@
+
+/* ICONOS Y BOTONES DEL HEADER*/
+
+.header-widget-contact{
+    display: flex;
+     
+     @media screen and (max-width: 640px){
+        display: none; /*Desactivados por responsive design */
+    }
+
+    &__icon{
+        display: flex;
+        width: 2em;
+        height: 2em;
+        background-color: $secundary-color;
+        color: white;
+        line-height: 2em;
+        font-size: 1.5em;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+   
+    &__data{
+       margin-left: 0.5em ;
+
+    }
+    &__title{
+        margin: 0;
+    }
+
+    &__content{
+        margin: 0;
+        padding-right: $gutter;
+    }
+}
+
+
+/*BOTONES DONATE Y JOIN BANNER*/
+
+.button{
+    text-decoration: none;
+    padding: 0 1em;
+    display: inline-block;
+    line-height: 3;
+    width: 130px;
+    text-align: center;
+    height: 42px;
+    
+    &--dark{
+        background-color: $secundary-color;
+        color: white;
+        margin-right: 8%;
+        
+          /*Desactivados por responsive design */
+        @media screen and (max-width:1200px){
+            display: none; 
+        }       
+    }
+   
+    &--light{
+        background-color: white;
+        color: $primary-color;
+        margin-right: $gutter;
+    }
+    
+    &--blue{
+        background-color: $primary-color;
+        color: white;
+    }
+   
+}
+
+/*BANNER Pequenyo subrayado del subtitulo */
+
+  .main-banner__subtitle::after{
+    content: '';
+    display: block;
+    width: 5.5%;
+    height: 3px;
+    background-color: $primary-color;
+}
+/*  ICONOS DE FEATURES*/
+.photo__icon{
+    display: flex;
+    width: 2em;
+    height: 2em;
+    position: absolute;
+    right: 35px;
+    bottom: 0;
+    color: white;
+    background-color: $secundary-color;
+    font-size: $xxl + 5px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    @media screen and (max-width:1200px){
+        font-size: $l;
+        right: 30px;
+    }
+    
+}
+/* SEPARACIONES VERTICALES FOOTER*/
+
+.border-footer::after{
+    width: 200px;
+    height: 1px;
+    content: '';
+    background-color: $primary-color;
+    transform: rotate(90deg) translateX(-50px) translateY(-430px);
+    @media screen and(max-width:1300px){
+        display: none;
+    }
+    }
+    .border-footer2::after{
+        width: 200px;
+        height: 1px;
+        content: '';
+        background-color: $primary-color;
+        transform: rotate(90deg) translateX(-75px) translateY(-440px);
+        @media screen and(max-width:1300px){
+            display: none;
+        }
+        }
+
+/* FOOTER Separacion vertical*/
+
+.footer-data--B :nth-child(2)::after{
+    height: 1px;
+    width: 30px;
+    background-color: $primary-color;
+    content: '';
+    display: block;
+    transform: rotate(90deg) translateX(-10px) translateY(280px);
+    @media screen and(max-width:1300px){
+        display: none;
+    }
+}   
+    
+
+
+
+
+

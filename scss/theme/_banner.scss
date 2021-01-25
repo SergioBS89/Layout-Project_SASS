@@ -1,0 +1,82 @@
+
+/*   ESTILOS DEL BANNER   */
+
+.main-banner{
+    position: relative;
+    overflow: hidden;
+
+    /*Animacion de foto del banner */
+    &-img__img--A{
+       background: url(https://images.pexels.com/photos/236940/pexels-photo-236940.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+         center / cover;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+    }
+    &-img__img--A::after{
+        content: '';
+        background:url(https://images.pexels.com/photos/707915/pexels-photo-707915.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+        center / cover;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        animation: photoA 10s infinite linear;
+        z-index: 10;
+    }
+    @keyframes photoA{
+        to{right: 100%;}
+    }
+    /*Responsive desing del banner */
+    .main-banner__subtitle,
+.main-banner__description{
+    display: block;
+    
+    @media screen and(max-width:1200px){
+        display: none;    
+    }
+}
+
+    
+
+    /*Hacemos un ligero degradado de opacidad a la foto del banner creando un hijo */
+
+    &-img__img--A::before{
+        content: '';
+        background-color: rgba(0, 0, 0, 0.295);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 20;
+    }
+
+    &__data{
+        position: absolute;
+        top: 57%;
+        left: 45%;
+        width: 75%;
+        transform: translate(-50%,-50%);
+        z-index: 20;
+        @media screen and(max-width: 1200px){
+            top:72%            
+        }
+    }
+&__title{
+ color: $primary-color;
+ font-size: 50px;
+ width: 100%;
+ font-family: 'Pacifico', cursive;
+}
+&__subtitle{
+    font-size: $xxl;
+    color: white;
+    margin: 0;
+    
+   }
+&__description{
+    color: white;
+    font-size: $l;
+}
+
+}

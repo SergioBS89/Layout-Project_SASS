@@ -1,0 +1,1437 @@
+@charset "UTF-8";
+/*                     SASS
+Que es SASS?
+SASS es un procesador de hojas de estilos CSS en tiempo real, es decir con SASS escribimos estilos CSS en formato SCSS
+previamente, para luego ser procesados y exportados a estilos CSS compatible con los navegadores modernos.
+Porque es útil usar SASS?
+Cuando escribimos CSS manualmente o de la forma clásica puede ser muy divertido y trabajará sin problemas con la vistas, 
+pero cuando nuestro proyecto va creciendo, las hojas de estilos empiezan a crecer y terminan siendo muy grandes y con 
+muchas líneas de código.
+Con SASS podemos reutilizar propiedades CSS y escribir de manera rápida nuestros estilos CSS, esto es genial, nos hace 
+más productivos. Es necesaria su instalacion y posterior compilacion del archivo para convertirlo en css, sin embargo
+con PREPROS podemos saltarnos la instalacion, abriendo el proyecto con esta herramienta podemos indicar donde queremos
+crear el archivo css que genera el compilado de SASS.
+
+Sintaxis SCSS: Es una sintaxis bastante similar a la sintaxis del propio CSS. De hecho, el código CSS es código SCSS
+válido. Podríamos decir que SCSS es código CSS con algunas cosas extra.
+
+Una de las principales virtudes de SASS son el uso de las variables, como podemos ver a continuacion:   
+
+$color: red;
+
+body{
+    background: $color;
+    &::before{
+        background: $color;
+    }
+}
+*/
+/*  Mas info en https://desarrolloweb.com/articulos/que-es-sass-usar-sass.html    */
+/* Las Metodologías o Arquitecturas CSS nos ayudaran a escribir código CSS más predecible, reutilizable, mantenible y 
+escalable. En este proyecto usaremos 2 muy conocidas, la primera de ellas es:
+
+                                   BEM(BLOCK ELEMENT MODIFIER)
+
+Hay que decirlo de frente, todos queremos hacer que nuestro código sea más fácil de leer. Esto nos ayuda a trabajar más 
+rápidamente y de manera eficiente, y cuando otros trabajen con nosotros podremos mantener claridad y coherencia. 
+Pareciera que en estos días existen muchos estándares y términos en el mundo del CSS: OOCSS, SMACSS, BEM y otros. 
+Todos estos son acercamientos para mejorar la estructura del CSS, y hoy vamos a cubrir la metodología BEM.
+
+BEM significa Modificador de Bloques de Elementos (Block Element Modifier) por sus siglas en inglés. Sugiere una manera 
+estructura de nombrar tus clases, basado en las propiedades del elemento en cuestión. Si alguna vez has visto un nombre 
+de una clase como header_from-email eso es precisamente BEM en acción. Cuando utilices la metodología BEM, debes tomar 
+en cuenta que solamente usarás nombres de clases (no IDs). Los nombres de clases te permiten repetir el nombre BEM si 
+es necesario, y crear una estructura de código más consistente (en ambos archivos el HTML y CSS/Saas). 
+
+BLOCK
+El bloque es un contenedor o contexto donde el elemento se encuentra presente. Piensa como si fueran partes estructurales 
+de código más grandes. Puede que tengas un HEADER, FOOTER, SIDEBAR y MAIN CONTAIN AREA; 
+cada uno de estos sería considerado como un bloque.
+
+Sintaxis:
+.header-menu(bloque)
+
+ELEMENT
+El elemento es una pieza de un bloque. El boque es el todo y los elementos son las piezas. Cada elemento se escribe luego 
+del bloque conectado por dos barras bajas.
+
+.block__element
+
+Sé que esto puede parecerte extraño pero una vez que comienzas a usarlo te preguntarás cómo es que has escrito CSS sin 
+usar BEM. La doble barra baja te permite visualizar, navegar rápidamente y manipular tu código.
+
+Aquí hay algunos ejemplos de cómo funciona la metodología de elementos:
+
+.header__logo {} 
+.header__tagline {} 
+.header__searchbar {}
+.header__navigation {}
+
+MODIFIER
+Cuando nombras una clase, la intención es ayudar a que ese elemento pueda ser repetido para que no tengas que escribir 
+nuevas clases en otras áreas del sitio si los elementos de estilo son los mismos. Cuando necesitas modificar el estilo 
+de un elemento específico, puedes usar un modificador (¡por supuesto!). Para lograr esto, añades un doble guión -- luego 
+del elemento (o bloque). Aquí tenemos un corto ejemplo:
+
+.block--modifier {}
+.block__element--modifier {}
+
+Ten cuidado al usar los modificadores, recuerda que se quiere mantener todo más simple y no tener que repetir lo mismo o 
+crear clases extra a menos que sea absolutamente necesario. Lo explicaremos con un código usando el encabezado del sitio 
+como nuestro bloque:
+
+.header__navigation {}
+.header__navigation--secondary {}
+
+Si estás usando una segunda navegación, lo más probable es que el diseño y espaciado no cambien, pero puede que la 
+navegación secundaria tenga un color distinto. Puedes ya sea, duplicar los estilos originales, o mejor aún, usar un 
+pre-procesador. Con Sass, podrías @extender el elemento principal (así el elemento secundario heredará todas las 
+propiedades) y cambiar los estilos apropiados.
+
+
+.header__navigation { 
+background: #008cba; 
+    padding: 1rem 0; 
+    margin: 2rem 0; 
+    text-transform: uppercase; 
+    } 
+
+.header__navigation--secondary { 
+    @extend .header__navigation;
+    background: #dfe0e0; 
+    }
+Puede que pienses, "¡pero el nombre de la clase es muy largo!". Yo lo veo así: Los nombres de las clases BEM son 
+específicos, claros, fáciles de leer dentro del html, y comunican claramente para qué existen.  
+
+
+
+La segunda metodologia que usaremos se llama:
+
+                             SMACSS (Scalable and Modular Architecture for CSS)
+
+En el núcleo de SMACSS (Arquitectura en CSS Escalable y Modular) está la categorización. Al clasificar las reglas CSS, 
+comenzamos a ver patrones y podemos definir mejores prácticas en torno a cada uno de estos patrones.
+Cada categoría tiene ciertas pautas que se aplican a ella. Esta separación algo sucinta nos permite hacernos preguntas 
+durante el proceso de desarrollo. ¿Cómo vamos a codificar las cosas y por qué las vamos a codificar de esa manera?
+Gran parte del propósito de categorizar cosas es codificar patrones, cosas que se repiten dentro de nuestro diseño. 
+La repetición resulta en menos código, mantenimiento más fácil y mayor consistencia en la experiencia del usuario. 
+Estas son todas las victorias. Las excepciones a la regla pueden ser ventajosas, pero deben justificarse.
+Crearemos las carpetas con estas categorias dentro de la carpeta de scss, para mejorar la organizacion.
+
+Las reglas básicas son las predeterminadas. Son casi exclusivamente selectores de un solo elemento, pero podría incluir 
+selectores de atributos, selectores de pseudo-clase, selectores secundarios o selectores hermanos. 
+Esencialmente, un estilo de base dice que dondequiera que este elemento se encuentra en la página, que debe ser similar 
+esto.
+
+Ejemplo estilo BASE:
+
+html, body, form { margin: 0; padding: 0; } input[type=text] { border: 1px solid #999; } 
+a { color: #039; } a:hover { color: #03C; }
+
+Al separar las reglas en las cinco categorías, la convención de nomenclatura es beneficiosa para comprender de inmediato 
+a qué categoría pertenece un estilo en particular y su función dentro del alcance general de la página. 
+En proyectos grandes, es más probable que los estilos se dividan en varios archivos. En estos casos, la convención de 
+nomenclatura también facilita encontrar a que archivo pertenece un estilo.
+
+El objetivo principal de esta metodología es reducir la cantidad de código y simplificar el mantenimiento. Para ello, 
+se dividen los estilos en cinco partes:
+
+Reglas BASES: se establecen los estilos por defecto de los elementos HTML individuales, los típicos selectores CSS de 
+tipo. Por ejemplo, html, body, button, h1, etc. Inicializamos los estilos principales.
+
+Reglas de LAYOUT: se divide la página en secciones (header, main content, footer, navigation, etc.) y se asignan los 
+estilos relacionados con su estructura.
+
+Reglas de MODULOS: elementos que pueden ser reusables, modulares e independientes del contexto. Por ejemplo: llamadas a 
+la acción o galerías de imágenes.
+
+Reglas de ESTADOS: se define el comportamiento del layout y sus módulos en diferentes estados: hover, active, diferentes 
+resoluciones, etc.).
+
+Reglas de TEMAS: estilos que afectan al layout y módulos. Estas reglas son opcionales, y las puedes utilizar para estilos
+ que puede que quieras reemplazar (normalmente se utiliza en sitios web que cuentan con varios temas, por ejemplo, 
+ uno oscuro y uno claro).*/
+/*     INICIANDO PROYECTO    (Basado en una plantilla de Pinterest 'https://www.pinterest.com/pin/272116002466225367/') */
+/*VARIABLES*/
+/*Paleta de colores*/
+/*Tamanyos de fuentes*/
+/*Variables de Layouts */
+/*Separacion entre columnas*/
+/*Ancho maximo permitido*/
+/*LOS NOMBRES DE LOS ARCHIVOS LLEVAN UN GUION BAJO DELANTE PARA QUE PREPROS NO COMPILE ESOS ARCHIVOS */
+/* IMPORTAMOS TODOS LOS ARCHIVOS*/
+/*NORMALIZE: Normalize es un fichero CSS que apenas ocupa 8 KB, cuyo principal objetivo es mantener los estilos 
+similares en los navegadores, ya que cada uno agrega sus propios estilos por defecto, por ejemplo te suelen agregar 
+distintos paddings, margins, font-sizes,etc.26 mar. 2015 */
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+/* Document
+   ========================================================================== */
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+html {
+  line-height: 1.15;
+  /* 1 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */
+}
+
+/* Sections
+   ========================================================================== */
+/**
+ * Remove the margin in all browsers.
+ */
+body {
+  margin: 0;
+}
+
+/**
+ * Render the `main` element consistently in IE.
+ */
+main {
+  display: block;
+}
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+  box-sizing: content-box;
+  /* 1 */
+  height: 0;
+  /* 1 */
+  overflow: visible;
+  /* 2 */
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+pre {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */
+}
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+a {
+  background-color: transparent;
+}
+
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+abbr[title] {
+  border-bottom: none;
+  /* 1 */
+  text-decoration: underline;
+  /* 2 */
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
+  /* 2 */
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong {
+  font-weight: bolder;
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */
+}
+
+/**
+ * Add the correct font size in all browsers.
+ */
+small {
+  font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove the border on images inside links in IE 10.
+ */
+img {
+  border-style: none;
+}
+
+/* Forms
+   ========================================================================== */
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  line-height: 1.15;
+  /* 1 */
+  margin: 0;
+  /* 2 */
+}
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+button,
+input {
+  /* 1 */
+  overflow: visible;
+}
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+button,
+select {
+  /* 1 */
+  text-transform: none;
+}
+
+/**
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+button,
+[type=button],
+[type=reset],
+[type=submit] {
+  -webkit-appearance: button;
+}
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+[type=button]::-moz-focus-inner,
+[type=reset]::-moz-focus-inner,
+[type=submit]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+[type=button]:-moz-focusring,
+[type=reset]:-moz-focusring,
+[type=submit]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+/**
+ * Correct the padding in Firefox.
+ */
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+legend {
+  box-sizing: border-box;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  display: table;
+  /* 1 */
+  max-width: 100%;
+  /* 1 */
+  padding: 0;
+  /* 3 */
+  white-space: normal;
+  /* 1 */
+}
+
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+progress {
+  vertical-align: baseline;
+}
+
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+textarea {
+  overflow: auto;
+}
+
+/**
+ * 1. Add the correct box sizing in IE 10.
+ * 2. Remove the padding in IE 10.
+ */
+[type=checkbox],
+[type=radio] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */
+}
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+[type=number]::-webkit-inner-spin-button,
+[type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+[type=search] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */
+}
+
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+[type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+}
+
+/* Interactive
+   ========================================================================== */
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+details {
+  display: block;
+}
+
+/*
+ * Add the correct display in all browsers.
+ */
+summary {
+  display: list-item;
+}
+
+/* Misc
+   ========================================================================== */
+/**
+ * Add the correct display in IE 10+.
+ */
+template {
+  display: none;
+}
+
+/**
+ * Add the correct display in IE 10.
+ */
+[hidden] {
+  display: none;
+}
+
+/*    HEADER   */
+.main-container {
+  width: 100%;
+  max-width: 2050px;
+}
+
+.main-header {
+  display: flex;
+  align-items: center;
+}
+@media screen and (max-width: 640px) {
+  .main-header {
+    flex-wrap: wrap;
+  }
+}
+.main-header-container-widget-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.main-header-container-logo {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+@media screen and (max-width: 640px) {
+  .main-header-container-logo {
+    width: 100%;
+  }
+}
+.main-header-container-text_logo {
+  width: 300px;
+  margin: 0;
+  text-align: center;
+}
+@media screen and (max-width: 1025px) {
+  .main-header-container-text_logo {
+    width: 100%;
+    font-size: 15px;
+  }
+}
+.main-header-container-img_logo {
+  width: 300px;
+  display: inline;
+  margin: 0;
+}
+@media screen and (max-width: 1025px) {
+  .main-header-container-img_logo {
+    width: 200px;
+  }
+}
+
+/*      MENU    */
+.main-nav {
+  display: flex;
+  background-color: #08aad3;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  width: 90%;
+  margin-left: 5%;
+  border-radius: 5px 5px 0 0;
+}
+@media screen and (max-width: 1200px) {
+  .main-nav {
+    display: none;
+    height: 340px;
+    width: 100%;
+    border-radius: 0;
+    margin-left: 0;
+  }
+}
+.main-nav.mostrar {
+  /*JavaScript del desplegable */
+  display: block;
+}
+
+/*     BANNER   */
+.main-banner {
+  height: 650px;
+  width: 100%;
+}
+@media screen and (max-width: 1200px) {
+  .main-banner {
+    height: 400px;
+  }
+}
+
+/* FEATURES  */
+.features-main-container {
+  width: 100%;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (max-width: 1200px) {
+  .features-main-container {
+    height: 400px;
+  }
+}
+@media screen and (max-width: 640px) {
+  .features-main-container {
+    height: 700px;
+  }
+}
+
+/*  Contenedor de fotos banner*/
+.features-photos {
+  width: 100%;
+  height: 60%;
+  display: inline-flex;
+  justify-content: space-around;
+  align-items: center;
+}
+@media screen and (max-width: 1200px) {
+  .features-photos {
+    height: 100%;
+  }
+}
+@media screen and (max-width: 640px) {
+  .features-photos {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 200px;
+  }
+}
+.features-photos__items {
+  width: 380px;
+  height: 280px;
+  border-radius: 7px;
+  position: relative;
+}
+@media screen and (max-width: 1200px) {
+  .features-photos__items {
+    width: 270px;
+    height: 200px;
+  }
+}
+@media screen and (max-width: 800px) {
+  .features-photos__items {
+    width: 220px;
+  }
+}
+@media screen and (max-width: 640px) {
+  .features-photos__items {
+    width: 250px;
+    height: 150px;
+  }
+}
+
+/*    DATA   */
+.main-data {
+  width: 100%;
+  height: 600px;
+  margin-top: 5%;
+  position: relative;
+  display: inline-flex;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+@media screen and (max-width: 1117px) {
+  .main-data {
+    height: 500px;
+  }
+}
+@media screen and (max-width: 800px) {
+  .main-data {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 900px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .main-data {
+    height: 700px;
+  }
+}
+
+/* PROJECTS */
+.project-title {
+  font-size: 28px;
+  color: #353434;
+  text-align: center;
+  margin: 8% 0 5% 0;
+}
+
+/*Contenedor principal */
+.main-container-projects {
+  width: 90%;
+  height: 600px;
+  display: grid;
+  grid-template-columns: 33% 1fr 33%;
+  column-gap: 15px;
+  row-gap: 8px;
+  margin: auto;
+  margin-bottom: 10%;
+}
+@media screen and (max-width: 850px) {
+  .main-container-projects {
+    height: 450px;
+  }
+}
+@media screen and (max-width: 640px) {
+  .main-container-projects {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 2500px;
+  }
+}
+
+/*   FOOTER  */
+.main-footer {
+  width: 100%;
+  height: 380px;
+  display: flex;
+  background-color: #353434;
+  flex-direction: column;
+}
+@media screen and (max-width: 640px) {
+  .main-footer {
+    height: 850px;
+  }
+}
+.main-footer__container--A {
+  display: grid;
+  grid-template-columns: 33% 1fr 33%;
+  justify-content: space-around;
+  align-items: flex-start;
+  grid-template-rows: 300px;
+}
+@media screen and (max-width: 640px) {
+  .main-footer__container--A {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.main-footer__container--B {
+  background-color: #353434;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+@media screen and (max-width: 640px) {
+  .main-footer__container--B {
+    margin: auto;
+  }
+}
+
+/* ESTILOS DEL HEADER  */
+.main-header {
+  padding: 16px;
+}
+
+.logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  /*Centramos el icono gracias al margin left/right auto */
+  width: 100%;
+  padding-bottom: 0;
+}
+@media screen and (min-width: 640px) {
+  .logo {
+    width: 70%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .logo {
+    width: 70%;
+    margin-left: 45px;
+  }
+}
+
+/* ICONOS Y BOTONES DEL HEADER*/
+.header-widget-contact {
+  display: flex;
+}
+@media screen and (max-width: 640px) {
+  .header-widget-contact {
+    display: none;
+    /*Desactivados por responsive design */
+  }
+}
+.header-widget-contact__icon {
+  display: flex;
+  width: 2em;
+  height: 2em;
+  background-color: #353434;
+  color: white;
+  line-height: 2em;
+  font-size: 1.5em;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.header-widget-contact__data {
+  margin-left: 0.5em;
+}
+.header-widget-contact__title {
+  margin: 0;
+}
+.header-widget-contact__content {
+  margin: 0;
+  padding-right: 16px;
+}
+
+/*BOTONES DONATE Y JOIN BANNER*/
+.button {
+  text-decoration: none;
+  padding: 0 1em;
+  display: inline-block;
+  line-height: 3;
+  width: 130px;
+  text-align: center;
+  height: 42px;
+}
+.button--dark {
+  background-color: #353434;
+  color: white;
+  margin-right: 8%;
+  /*Desactivados por responsive design */
+}
+@media screen and (max-width: 1200px) {
+  .button--dark {
+    display: none;
+  }
+}
+.button--light {
+  background-color: white;
+  color: #08aad3;
+  margin-right: 16px;
+}
+.button--blue {
+  background-color: #08aad3;
+  color: white;
+}
+
+/*BANNER Pequenyo subrayado del subtitulo */
+.main-banner__subtitle::after {
+  content: "";
+  display: block;
+  width: 5.5%;
+  height: 3px;
+  background-color: #08aad3;
+}
+
+/*  ICONOS DE FEATURES*/
+.photo__icon {
+  display: flex;
+  width: 2em;
+  height: 2em;
+  position: absolute;
+  right: 35px;
+  bottom: 0;
+  color: white;
+  background-color: #353434;
+  font-size: 33px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+@media screen and (max-width: 1200px) {
+  .photo__icon {
+    font-size: 20px;
+    right: 30px;
+  }
+}
+
+/* SEPARACIONES VERTICALES FOOTER*/
+.border-footer::after {
+  width: 200px;
+  height: 1px;
+  content: "";
+  background-color: #08aad3;
+  transform: rotate(90deg) translateX(-50px) translateY(-430px);
+}
+@media screen and (max-width: 1300px) {
+  .border-footer::after {
+    display: none;
+  }
+}
+
+.border-footer2::after {
+  width: 200px;
+  height: 1px;
+  content: "";
+  background-color: #08aad3;
+  transform: rotate(90deg) translateX(-75px) translateY(-440px);
+}
+@media screen and (max-width: 1300px) {
+  .border-footer2::after {
+    display: none;
+  }
+}
+
+/* FOOTER Separacion vertical*/
+.footer-data--B :nth-child(2)::after {
+  height: 1px;
+  width: 30px;
+  background-color: #08aad3;
+  content: "";
+  display: block;
+  transform: rotate(90deg) translateX(-10px) translateY(280px);
+}
+@media screen and (max-width: 1300px) {
+  .footer-data--B :nth-child(2)::after {
+    display: none;
+  }
+}
+
+body {
+  font-size: 14px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/*   ESTILOS DEL MENU */
+.main-menu {
+  margin-left: 0;
+  margin-top: 0;
+  padding: 0;
+  list-style: none;
+  margin-bottom: 0;
+}
+@media screen and (min-width: 1200px) {
+  .main-menu {
+    display: flex;
+  }
+}
+.main-menu__item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.527);
+}
+.main-menu__item a {
+  display: block;
+  text-decoration: none;
+  padding: 0 1em 0 1em;
+  line-height: 3;
+  color: white;
+  cursor: pointer;
+}
+
+/*Iconos redes sociales */
+.social-networks {
+  padding-left: 1em;
+  height: 30;
+  margin-top: 12px;
+}
+.social-networks__icon {
+  text-decoration: none;
+  color: white;
+  font-size: large;
+  padding-right: 16px;
+}
+
+/*Icono del menu deplegable */
+.icon-menu {
+  display: flex;
+  margin: auto;
+  padding: 8px;
+  color: #08aad3;
+  cursor: pointer;
+}
+@media screen and (min-width: 1200px) {
+  .icon-menu {
+    display: none;
+  }
+}
+
+.container-button {
+  width: 100%;
+  background-color: #08aad3;
+  border: 0.3px 0 solid #353434;
+  padding: 3px;
+}
+@media screen and (min-width: 1200px) {
+  .container-button {
+    display: none;
+  }
+}
+
+/*   ESTILOS DEL BANNER   */
+.main-banner {
+  position: relative;
+  overflow: hidden;
+  /*Animacion de foto del banner */
+  /*Responsive desing del banner */
+  /*Hacemos un ligero degradado de opacidad a la foto del banner creando un hijo */
+}
+.main-banner-img__img--A {
+  background: url(https://images.pexels.com/photos/236940/pexels-photo-236940.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) center/cover;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+}
+.main-banner-img__img--A::after {
+  content: "";
+  background: url(https://images.pexels.com/photos/707915/pexels-photo-707915.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) center/cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  animation: photoA 10s infinite linear;
+  z-index: 10;
+}
+@keyframes photoA {
+  to {
+    right: 100%;
+  }
+}
+.main-banner .main-banner__subtitle,
+.main-banner .main-banner__description {
+  display: block;
+}
+@media screen and (max-width: 1200px) {
+  .main-banner .main-banner__subtitle,
+.main-banner .main-banner__description {
+    display: none;
+  }
+}
+.main-banner-img__img--A::before {
+  content: "";
+  background-color: rgba(0, 0, 0, 0.295);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 20;
+}
+.main-banner__data {
+  position: absolute;
+  top: 57%;
+  left: 45%;
+  width: 75%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+}
+@media screen and (max-width: 1200px) {
+  .main-banner__data {
+    top: 72%;
+  }
+}
+.main-banner__title {
+  color: #08aad3;
+  font-size: 50px;
+  width: 100%;
+  font-family: "Pacifico", cursive;
+}
+.main-banner__subtitle {
+  font-size: 28px;
+  color: white;
+  margin: 0;
+}
+.main-banner__description {
+  color: white;
+  font-size: 20px;
+}
+
+/*HEADER*/
+.header-widget-contact__icon:hover {
+  color: #08aad3;
+}
+
+.button--dark:hover {
+  color: #08aad3;
+}
+
+.main-header-container-text_logo {
+  color: #353434;
+}
+
+/* MENU */
+.main-menu__item a:hover {
+  color: #353434;
+}
+
+.social-networks__icon:hover {
+  color: #353434;
+}
+
+/*BANNER*/
+.button--light:hover {
+  color: #353434;
+}
+.button--blue:hover {
+  color: #353434;
+}
+
+/*FOOTER */
+.footer-data__read:hover {
+  color: white;
+}
+
+.footer-social-networks__icon:hover {
+  color: #08aad3;
+}
+
+.features-data {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (max-width: 1200px) {
+  .features-data {
+    height: 300px;
+  }
+}
+.features-data__title {
+  font-size: 48px;
+  color: #353434;
+}
+@media screen and (max-width: 1200px) {
+  .features-data__title {
+    font-size: 28px;
+  }
+}
+@media screen and (max-width: 640px) {
+  .features-data__title {
+    font-size: 20px;
+  }
+}
+.features-data__title::before {
+  content: "50000 + ";
+  color: #08aad3;
+  font-size: 51px;
+}
+@media screen and (max-width: 1200px) {
+  .features-data__title::before {
+    font-size: 28px;
+  }
+}
+@media screen and (max-width: 640px) {
+  .features-data__title::before {
+    display: block;
+    font-size: 20px;
+    text-align: center;
+  }
+}
+.features-data__subtitle {
+  margin-top: 10px;
+  font-size: 24px;
+  width: 100%;
+  text-align: center;
+}
+@media screen and (max-width: 1200px) {
+  .features-data__subtitle {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 640px) {
+  .features-data__subtitle {
+    font-size: 14px;
+    text-align: center;
+  }
+}
+.features-data__subtitle::before {
+  content: "    ";
+  height: 2px;
+  background-color: #08aad3;
+  width: 50px;
+  display: inline-block;
+  margin-right: 20px;
+}
+.features-data__subtitle::after {
+  content: "    ";
+  height: 2px;
+  background-color: #08aad3;
+  width: 50px;
+  display: inline-block;
+  margin-left: 20px;
+}
+.features-data__item {
+  display: inline-block;
+}
+
+/*  Info foto */
+.photo__data {
+  position: absolute;
+  background-color: #08aad3;
+  color: white;
+  font-size: 20px;
+  padding: 12px 20px;
+  width: 80%;
+  text-align: center;
+  bottom: 0;
+}
+@media screen and (max-width: 1200px) {
+  .photo__data {
+    font-size: 14px;
+  }
+}
+
+.photoA {
+  background: url(https://images.pexels.com/photos/414837/pexels-photo-414837.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) center/cover;
+  background-repeat: no-repeat;
+}
+
+.photoB {
+  background: url(https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) center/cover;
+  background-repeat: no-repeat;
+}
+
+.photoC {
+  background: url(https://images.pexels.com/photos/3480494/pexels-photo-3480494.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) center/cover;
+  background-repeat: no-repeat;
+}
+
+.main-data-img {
+  background: url(https://www.wallpapertip.com/wmimgs/52-523428_green-nature-wallpaper-4k.jpg) center/cover;
+}
+.main-data__item {
+  background-color: rgba(92, 175, 92, 0.726);
+  width: 280px;
+  height: 230px;
+  margin-bottom: 7%;
+}
+@media screen and (max-width: 1117px) {
+  .main-data__item {
+    margin-bottom: 5%;
+    width: 22%;
+  }
+}
+@media screen and (max-width: 800px) {
+  .main-data__item {
+    margin-bottom: 0;
+    width: 40%;
+    height: 180px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .main-data__item {
+    height: 150px;
+    width: 50%;
+  }
+}
+.main-data__subdata {
+  position: absolute;
+  top: 20%;
+  color: white;
+  font-size: 28px;
+}
+@media screen and (max-width: 1117px) {
+  .main-data__subdata {
+    font-size: 24px;
+    top: 15%;
+  }
+}
+@media screen and (max-width: 800px) {
+  .main-data__subdata {
+    display: none;
+  }
+}
+
+.main-data-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.main-data-section__title {
+  color: white;
+  font-size: 38px;
+}
+@media screen and (max-width: 500px) {
+  .main-data-section__title {
+    font-size: 20px;
+  }
+}
+.main-data-section__title::after {
+  display: flex;
+  width: 100%;
+  height: 2px;
+  content: "";
+  background-color: #08aad3;
+  margin-right: 40%;
+}
+.main-data-section__subtitle {
+  color: white;
+  font-size: 20px;
+}
+@media screen and (max-width: 500px) {
+  .main-data-section__subtitle {
+    font-size: 14px;
+  }
+}
+.main-data-section__icon {
+  font-size: 38px;
+  color: white;
+}
+@media screen and (max-width: 500px) {
+  .main-data-section__icon {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .main-projects__items {
+    width: 100%;
+    height: 100%;
+  }
+}
+.main-projects__items:nth-child(2) {
+  grid-column: 2/2;
+  grid-row: 1/3;
+}
+
+.project--A {
+  background: url(https://images.pexels.com/photos/145685/pexels-photo-145685.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500) center/cover;
+  background-repeat: no-repeat;
+}
+.project--B {
+  background: url(https://images.pexels.com/photos/92933/pexels-photo-92933.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) center/450px;
+  background-repeat: no-repeat;
+}
+@media screen and (max-width: 640px) {
+  .project--B {
+    background-size: cover;
+  }
+}
+.project--C {
+  background: url(https://images.pexels.com/photos/413735/pexels-photo-413735.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500) center/cover;
+  background-repeat: no-repeat;
+}
+.project--D {
+  background: url(https://images.pexels.com/photos/949194/pexels-photo-949194.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500) center/cover;
+  background-repeat: no-repeat;
+}
+.project--E {
+  background: url(https://images.pexels.com/photos/719756/pexels-photo-719756.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500) center/cover;
+  background-repeat: no-repeat;
+}
+
+.footer-data, .footer-data--B {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: flex-start;
+}
+.footer-data__title {
+  color: white;
+  margin: 70px 0 30px 0;
+  font-size: 28px;
+}
+.footer-data__subtitle {
+  color: rgba(189, 187, 187, 0.705);
+  font-size: 16px;
+  margin: 0;
+}
+@media screen and (max-width: 850px) {
+  .footer-data__subtitle {
+    font-size: 14px;
+  }
+}
+.footer-data__read {
+  margin-top: 20px;
+  color: #08aad3;
+  text-decoration: none;
+  font-size: 20px;
+}
+.footer-data__input {
+  height: 40px;
+  margin-bottom: 20px;
+  width: 60%;
+  margin-right: auto;
+  margin-left: auto;
+  color: #353434;
+  font-size: 14px;
+  text-align: center;
+}
+@media screen and (max-width: 640px) {
+  .footer-data, .footer-data--B {
+    width: 50%;
+  }
+}
+
+.footer-social-networks {
+  margin-top: 20px;
+}
+.footer-social-networks__icon {
+  color: rgba(189, 187, 187, 0.705);
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.footer-data--B {
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding-top: 30px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(189, 187, 187, 0.705);
+}
+@media screen and (max-width: 640px) {
+  .footer-data--B {
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+    border-top: 0;
+  }
+}
+.footer-data--B__logo {
+  width: 150px;
+  height: 50px;
+  background-color: white;
+  margin: 0;
+  padding: 5px;
+  cursor: pointer;
+}
+.footer-data--B__subtitle {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+@media screen and (max-width: 850px) {
+  .footer-data--B__subtitle {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,67 @@
+
+/*   ESTILOS DEL MENU */
+
+.main-menu{
+    margin-left: 0;
+    margin-top: 0;
+    padding: 0;
+    list-style: none;
+    margin-bottom: 0;
+
+    @media screen and(min-width:1200px){
+       display: flex;
+    }
+    
+    &__item{
+        border-bottom: 1px solid rgba(255, 255, 255, 0.527);
+    }
+
+
+    &__item a{
+        display: block;
+        text-decoration: none;
+        padding: 0 1em 0 1em;
+        line-height: 3;
+        color: white;
+        cursor: pointer;
+        }
+     
+    }
+    /*Iconos redes sociales */
+    
+    .social-networks{
+        padding-left: 1em;
+        height: 30;
+        margin-top: 12px;
+        &__icon{
+        text-decoration: none;
+        color: white;
+        font-size: large;
+        padding-right: $gutter;       
+    }  
+       
+    }
+
+    /*Icono del menu deplegable */
+.icon-menu{
+    display: flex;
+    margin: auto;
+    padding: 8px;
+    color: $primary-color;
+    cursor: pointer;
+    @media screen and(min-width:1200px){
+        display: none;
+    }
+}
+.container-button{
+    width: 100%;
+    background-color: $primary-color;
+    border: 0.3px 0  solid $secundary-color;
+    padding: 3px;
+    @media screen and(min-width:1200px){
+        display: none;
+    }
+}
+
+   
+

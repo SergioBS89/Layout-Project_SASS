@@ -1,0 +1,212 @@
+/*                     SASS
+Que es SASS?
+SASS es un procesador de hojas de estilos CSS en tiempo real, es decir con SASS escribimos estilos CSS en formato SCSS
+previamente, para luego ser procesados y exportados a estilos CSS compatible con los navegadores modernos.
+Porque es útil usar SASS?
+Cuando escribimos CSS manualmente o de la forma clásica puede ser muy divertido y trabajará sin problemas con la vistas, 
+pero cuando nuestro proyecto va creciendo, las hojas de estilos empiezan a crecer y termina siendo muy grandes y con 
+muchas líneas de código.
+Con SASS podemos reutilizar propiedades CSS y escribir de manera rápida nuestros estilos CSS, esto es genial, nos hace 
+más productivos. Es necesaria su instalacion y posterior compilacion del archivo para convertirlo en css, sin embargo
+con PREPROS podemos saltarnos la instalacion, abriendo el proyecto con esta herramienta podemos indicar donde queremos
+crear el archivo css que genera el compilado de SASS.
+
+Sintaxis SCSS: Es una sintaxis bastante similar a la sintaxis del propio CSS. De hecho, el código CSS es código SCSS
+válido. Podríamos decir que SCSS es código CSS con algunas cosas extra.
+
+Una de las principales virtudes de SASS son el uso de las variables, como podemos ver a continuacion:   
+
+$color: red;
+
+body{
+    background: $color;
+    &::before{
+        background: $color;
+    }
+}
+*/
+/*  Mas info en https://desarrolloweb.com/articulos/que-es-sass-usar-sass.html    */
+
+
+
+/* Las Metodologías o Arquitecturas CSS nos ayudaran a escribir código CSS más predecible, reutilizable, mantenible y 
+escalable. En este proyecto usaremos 2 muy conocidas, la primera de ellas es:
+
+                                   BEM(BLOCK ELEMENT MODIFIER)
+
+Hay que decirlo de frente, todos queremos hacer que nuestro código sea más fácil de leer. Esto nos ayuda a trabajar más 
+rápidamente y de manera eficiente, y cuando otros trabajen con nosotros podremos mantener claridad y coherencia. 
+Pareciera que en estos días existen muchos estándares y términos en el mundo del CSS: OOCSS, SMACSS, BEM y otros. 
+Todos estos son acercamientos para mejorar la estructura del CSS, y hoy vamos a cubrir la metodología BEM.
+
+BEM significa Modificador de Bloques de Elementos (Block Element Modifier) por sus siglas en inglés. Sugiere una manera 
+estructura de nombrar tus clases, basado en las propiedades del elemento en cuestión. Si alguna vez has visto un nombre 
+de una clase como header_from-email eso es precisamente BEM en acción. Cuando utilices la metodología BEM, debes tomar 
+en cuenta que solamente usarás nombres de clases (no IDs). Los nombres de clases te permiten repetir el nombre BEM si 
+es necesario, y crear una estructura de código más consistente (en ambos archivos el HTML y CSS/Saas). 
+
+BLOCK
+El bloque es un contenedor o contexto donde el elemento se encuentra presente. Piensa como si fueran partes estructurales 
+de código más grandes. Puede que tengas un HEADER, FOOTER, SIDEBAR y MAIN CONTAIN AREA; 
+cada uno de estos sería considerado como un bloque.
+
+Sintaxis:
+.header-menu(bloque)
+
+ELEMENT
+El elemento es una pieza de un bloque. El boque es el todo y los elementos son las piezas. Cada elemento se escribe luego 
+del bloque conectado por dos barras bajas.
+
+.block__element
+
+Sé que esto puede parecerte extraño pero una vez que comienzas a usarlo te preguntarás cómo es que has escrito CSS sin 
+usar BEM. La doble barra baja te permite visualizar, navegar rápidamente y manipular tu código.
+
+Aquí hay algunos ejemplos de cómo funciona la metodología de elementos:
+
+.header__logo {} 
+.header__tagline {} 
+.header__searchbar {}
+.header__navigation {}
+
+MODIFIER
+Cuando nombras una clase, la intención es ayudar a que ese elemento pueda ser repetido para que no tengas que escribir 
+nuevas clases en otras áreas del sitio si los elementos de estilo son los mismos. Cuando necesitas modificar el estilo 
+de un elemento específico, puedes usar un modificador (¡por supuesto!). Para lograr esto, añades un doble guión -- luego 
+del elemento (o bloque). Aquí tenemos un corto ejemplo:
+
+.block--modifier {}
+.block__element--modifier {}
+
+Ten cuidado al usar los modificadores, recuerda que se quiere mantener todo más simple y no tener que repetir lo mismo o 
+crear clases extra a menos que sea absolutamente necesario. Lo explicaremos con un código usando el encabezado del sitio 
+como nuestro bloque:
+
+.header__navigation {}
+.header__navigation--secondary {}
+
+Si estás usando una segunda navegación, lo más probable es que el diseño y espaciado no cambien, pero puede que la 
+navegación secundaria tenga un color distinto. Puedes ya sea, duplicar los estilos originales, o mejor aún, usar un 
+pre-procesador. Con Sass, podrías @extender el elemento principal (así el elemento secundario heredará todas las 
+propiedades) y cambiar los estilos apropiados.
+
+
+.header__navigation { 
+background: #008cba; 
+    padding: 1rem 0; 
+    margin: 2rem 0; 
+    text-transform: uppercase; 
+    } 
+     
+.header__navigation--secondary { 
+    @extend .header__navigation;
+    background: #dfe0e0; 
+    }
+Puede que pienses, "¡pero el nombre de la clase es muy largo!". Yo lo veo así: Los nombres de las clases BEM son 
+específicos, claros, fáciles de leer dentro del html, y comunican claramente para qué existen.  
+
+
+
+La segunda metodologia que usaremos se llama:
+
+                             SMACSS (Scalable and Modular Architecture for CSS)
+
+En el núcleo de SMACSS (Arquitectura en CSS Escalable y Modular) está la categorización. Al clasificar las reglas CSS, 
+comenzamos a ver patrones y podemos definir mejores prácticas en torno a cada uno de estos patrones.
+Cada categoría tiene ciertas pautas que se aplican a ella. Esta separación algo sucinta nos permite hacernos preguntas 
+durante el proceso de desarrollo. ¿Cómo vamos a codificar las cosas y por qué las vamos a codificar de esa manera?
+Gran parte del propósito de categorizar cosas es codificar patrones, cosas que se repiten dentro de nuestro diseño. 
+La repetición resulta en menos código, mantenimiento más fácil y mayor consistencia en la experiencia del usuario. 
+Estas son todas las victorias. Las excepciones a la regla pueden ser ventajosas, pero deben justificarse.
+Crearemos las carpetas con estas categorias dentro de la carpeta de scss, para mejorar la organizacion.
+
+Las reglas básicas son las predeterminadas. Son casi exclusivamente selectores de un solo elemento, pero podría incluir 
+selectores de atributos, selectores de pseudo-clase, selectores secundarios o selectores hermanos. 
+Esencialmente, un estilo de base dice que dondequiera que este elemento se encuentra en la página, que debe ser similar 
+esto.
+
+Ejemplo estilo BASE:
+
+html, body, form { margin: 0; padding: 0; } input[type=text] { border: 1px solid #999; } 
+a { color: #039; } a:hover { color: #03C; }
+
+Al separar las reglas en las cinco categorías, la convención de nomenclatura es beneficiosa para comprender de inmediato 
+a qué categoría pertenece un estilo en particular y su función dentro del alcance general de la página. 
+En proyectos grandes, es más probable que los estilos se dividan en varios archivos. En estos casos, la convención de 
+nomenclatura también facilita encontrar a que archivo pertenece un estilo.
+
+El objetivo principal de esta metodología es reducir la cantidad de código y simplificar el mantenimiento. Para ello, 
+se dividen los estilos en cinco partes:
+
+Reglas BASES: se establecen los estilos por defecto de los elementos HTML individuales, los típicos selectores CSS de 
+tipo. Por ejemplo, html, body, button, h1, etc. Inicializamos los estilos principales.
+
+Reglas de LAYOUT: se divide la página en secciones (header, main content, footer, navigation, etc.) y se asignan los 
+estilos relacionados con su estructura.
+
+Reglas de MODULOS: elementos que pueden ser reusables, modulares e independientes del contexto. Por ejemplo: llamadas a 
+la acción o galerías de imágenes.
+
+Reglas de ESTADOS: se define el comportamiento del layout y sus módulos en diferentes estados: hover, active, diferentes 
+resoluciones, etc.).
+
+Reglas de TEMAS: estilos que afectan al layout y módulos. Estas reglas son opcionales, y las puedes utilizar para estilos
+ que puede que quieras reemplazar (normalmente se utiliza en sitios web que cuentan con varios temas, por ejemplo, 
+ uno oscuro y uno claro).*/
+
+
+
+
+
+/*     INICIANDO PROYECTO    (Basado en una plantilla de Pinterest 'https://www.pinterest.com/pin/272116002466225367/') */
+
+/*VARIABLES*/
+
+
+/*Paleta de colores*/
+
+$primary-color: rgb(8, 170, 211);
+$secundary-color: rgb(53, 52, 52);
+
+/*Tamanyos de fuentes*/
+
+$xxl: 28px;
+$xl: 24px;
+$l: 20px;
+$m: 16px;
+$s: 14px;
+$xs: 8px;
+$xss: 4px;
+
+/*Variables de Layouts */
+
+$gutter: 16px;/*Separacion entre columnas*/
+$maxWidht:2050px;/*Ancho maximo permitido*/
+
+/*LOS NOMBRES DE LOS ARCHIVOS LLEVAN UN GUION BAJO DELANTE PARA QUE PREPROS NO COMPILE ESOS ARCHIVOS */
+
+/* IMPORTAMOS TODOS LOS ARCHIVOS*/ 
+
+@import 'base/normalize';
+
+@import 'layout/layout';
+
+@import 'theme/header';
+
+@import 'modules/modules';
+
+@import 'base/body';
+
+@import 'theme/menu';
+
+@import 'theme/banner';
+
+@import 'state/hover';
+
+@import 'theme/features';
+
+@import 'theme/data';
+
+@import 'theme/projects';
+
+@import 'theme/footer';

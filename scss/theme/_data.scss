@@ -1,0 +1,73 @@
+.main-data{
+    &-img{
+        background: url(https://www.wallpapertip.com/wmimgs/52-523428_green-nature-wallpaper-4k.jpg)
+        center / cover;
+    }
+    
+    &__item{
+        background-color: rgba(92, 175, 92, 0.726);
+        width: 280px;
+        height: 230px;
+        margin-bottom: 7%;
+        @media screen and(max-width:1117px){
+            margin-bottom: 5%;
+            width: 22%;} 
+            @media screen and(max-width:800px){
+                margin-bottom: 0;
+                width: 40%;
+                height: 180px;} 
+                @media screen and(max-width:500px){
+                    height: 150px;
+                    width: 50%;}
+              
+
+    }
+    &__subdata{
+        position: absolute;
+        top: 20%;
+        color: white;
+        font-size: $xxl;
+        @media screen and(max-width:1117px){
+            font-size: $xl;
+            top: 15%;}
+            @media screen and(max-width:800px){
+                display: none;}
+            }
+}
+.main-data-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    &__title{
+        color: white;
+        font-size: $xxl + 10px;
+        @media screen and(max-width:500px){
+            font-size: $l;
+            }
+
+    }
+    &__title::after{
+        display: flex;
+        width: 100%;
+        height: 2px;
+        content: '';
+        background-color: $primary-color;
+        margin-right: 40%;
+    }
+    &__subtitle{
+        color: white;
+        font-size: $l;
+        @media screen and(max-width:500px){
+            font-size: $s;
+            }
+    }
+    &__icon{
+        font-size: $xxl + 10px;
+        color: white;    
+        @media screen and(max-width:500px){
+            font-size: $l;
+            }
+    }
+
+}

@@ -1,0 +1,41 @@
+
+/*HEADER*/
+.header-widget-contact__icon:hover{
+    color: $primary-color;
+}
+.button--dark:hover{
+    color: $primary-color;
+}
+.main-header-container-text_logo{
+    color: $secundary-color;
+}
+
+/* MENU */
+
+.main-menu__item a:hover{
+    color: $secundary-color;
+}   
+.social-networks__icon:hover{
+    color:$secundary-color;
+}  
+/*BANNER*/
+
+.button{
+&--light:hover{
+    color: $secundary-color;
+}
+&--blue:hover{
+    color: $secundary-color;
+}
+}
+
+/*FOOTER */
+
+.footer-data__read:hover{
+    color: white;
+  }
+
+  .footer-social-networks{
+    &__icon:hover{
+        color: $primary-color;
+    }        }
