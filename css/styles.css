@@ -5,7 +5,7 @@ SASS es un procesador de hojas de estilos CSS en tiempo real, es decir con SASS 
 previamente, para luego ser procesados y exportados a estilos CSS compatible con los navegadores modernos.
 Porque es útil usar SASS?
 Cuando escribimos CSS manualmente o de la forma clásica puede ser muy divertido y trabajará sin problemas con la vistas, 
-pero cuando nuestro proyecto va creciendo, las hojas de estilos empiezan a crecer y terminan siendo muy grandes y con 
+pero cuando nuestro proyecto va creciendo, las hojas de estilos empiezan a crecer y termina siendo muy grandes y con 
 muchas líneas de código.
 Con SASS podemos reutilizar propiedades CSS y escribir de manera rápida nuestros estilos CSS, esto es genial, nos hace 
 más productivos. Es necesaria su instalacion y posterior compilacion del archivo para convertirlo en css, sin embargo
@@ -506,7 +506,7 @@ template {
 /*    HEADER   */
 .main-container {
   width: 100%;
-  max-width: 2050px;
+  max-width: 1920px;
 }
 
 .main-header {
